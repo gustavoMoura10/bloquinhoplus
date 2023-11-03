@@ -1,14 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'Dashboard',
-    description: 'Dashboard',
+    title: 'Sign Up',
+    description: 'Sign Up',
 }
 
-export default function RootLayout({
+export default function SignUpLayout({
     children,
 }: {
     children: React.ReactNode

@@ -1,6 +1,6 @@
 "use client";
 import styles from '@/../style/components/header.module.css'
-import { useSession } from 'next-auth/react'
+import { signIn, useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 export default function Header() {
     const { data: session, status } = useSession();
@@ -11,12 +11,38 @@ export default function Header() {
                     <Link href="/">
                         <h1 className={styles.logo}>Bloquinho<span>+</span></h1>
                     </Link>
+                    {
+                        session?.user && (
+                            <Link href="/dashboard" className={styles.link}>
+                                Meu Painel
+                            </Link>
+                        )
+                    }
                 </nav>
 
-                {session ? <>
-                    <button className={styles['login-button']} aria-expanded="true" aria-haspopup="true">Teste</button>
+                {session ?
+                    <button
+                        className={styles['login-button']}
+                        onClick={() => signOut()}
+                    >Olá {session?.user?.name}
+                    </button>
 
-                </> : <button className={styles['login-button']}>Acessar</button>}
+                    :
+                    <div className={styles['header-buttons']}>
+                        <Link href="/sign-up">
+                            <button
+                                className={styles['auth-button']}
+                            >Registar
+                            </button>
+                        </Link>
+                        <Link href="/sign-in">
+                            <button
+                                className={styles['auth-button']}
+                            >Login
+                            </button>
+                        </Link>
+                    </div>
+                }
             </section>
         </header>
     )
